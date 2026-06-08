@@ -1,0 +1,44 @@
+/* Rocker switch tabs — same design system */
+.tabs {
+  display: flex;
+  background: #121212;
+  border-radius: 6px;
+  padding: 4px;
+  margin-bottom: 32px;
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.9),
+    0 1px 0 rgba(255, 255, 255, 0.08);
+  border: 1px solid #050505;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px 0;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--hw-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.tab:hover:not(.tabActive) {
+  color: var(--hw-text-stenciled);
+}
+
+/* Active tab physically lifts out of the tray */
+.tabActive {
+  color: var(--hw-text-bright);
+  background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+  border-top: 1px solid #5a5a5a;
+  border-bottom: 1px solid #111;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+}

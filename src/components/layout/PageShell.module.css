@@ -1,0 +1,32 @@
+.shell {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--hw-bg-chassis);
+  /* Dot grid inherited from body — no need to repeat */
+}
+
+.main {
+  flex: 1;
+  margin-left: 240px; /* sidebar width */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 0; /* prevents flex children from overflowing */
+}
+
+.content {
+  flex: 1;
+  margin-top: 52px; /* topbar height */
+  padding: 28px 28px 48px;
+  overflow-y: auto;
+}
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .main {
+    margin-left: 0;
+  }
+  .content {
+    padding: 20px 16px 40px;
+  }
+}

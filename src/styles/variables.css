@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Inter:wght@400;600&display=swap");
+
+:root {
+  /* ── Materials ─────────────────────────────────────────── */
+  --hw-bg-chassis: #121212;
+  --hw-surface-dark: #1c1c1c;
+  --hw-surface-light: #2a2a2a;
+  --hw-surface-mid: #222222;
+  --hw-recessed-well: #080808;
+  --hw-border-bright: #4a4a4a;
+  --hw-border-dark: #111111;
+  --hw-border-mid: #333333;
+
+  /* ── Accents ───────────────────────────────────────────── */
+  --hw-accent-lcd: #33ff00;
+  --hw-accent-lcd-dim: #1a4d1a;
+  --hw-accent-trigger: #ff6600;
+  --hw-accent-trigger-dark: #cc4400;
+  --hw-accent-trigger-edge: #7a1f00;
+  --hw-accent-danger: #ff3333;
+  --hw-accent-danger-edge: #7a0000;
+  --hw-accent-info: #0088ff;
+
+  /* ── Text ──────────────────────────────────────────────── */
+  --hw-text-bright: #ffffff;
+  --hw-text-stenciled: #888888;
+  --hw-text-dim: #555555;
+  --hw-text-lcd: #33ff00;
+
+  /* ── Typography ────────────────────────────────────────── */
+  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "Inter", sans-serif;
+
+  /* ── Physical Shadows ──────────────────────────────────── */
+  --hw-shadow-raised:
+    0 24px 48px rgba(0, 0, 0, 0.9), 0 8px 16px rgba(0, 0, 0, 0.6);
+
+  --hw-shadow-recessed: inset 0 4px 10px rgba(0, 0, 0, 0.9);
+
+  --hw-shadow-button-3d:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 6px 0 var(--hw-accent-trigger-edge), 0 12px 20px rgba(0, 0, 0, 0.7);
+
+  --hw-shadow-button-pressed:
+    inset 0 3px 6px rgba(0, 0, 0, 0.4), 0 0 0 var(--hw-accent-trigger-edge),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+
+  --hw-glow-lcd: 0 0 12px rgba(51, 255, 0, 0.15);
+  --hw-glow-danger: 0 0 12px rgba(255, 51, 51, 0.15);
+  --hw-glow-info: 0 0 12px rgba(0, 136, 255, 0.15);
+
+  /* ── Spacing ───────────────────────────────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* ── Border radius ─────────────────────────────────────── */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* ── Z-index ───────────────────────────────────────────── */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal-backdrop: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+
+  /* ── Sidebar ───────────────────────────────────────────── */
+  --sidebar-width: 240px;
+  --topbar-height: 56px;
+
+  /* ── Transitions ───────────────────────────────────────── */
+  --transition-snap: 0.05s ease;
+  --transition-fast: 0.12s ease;
+  --transition-base: 0.2s ease;
+}

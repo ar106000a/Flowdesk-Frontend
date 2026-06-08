@@ -1,0 +1,124 @@
+/* ── Reset ──────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 14px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--hw-text-stenciled);
+  background-color: var(--hw-bg-chassis);
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size:
+    20px 20px,
+    10px 10px;
+  background-position:
+    0 0,
+    5px 5px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Type ───────────────────────────────────────────────── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--hw-text-stenciled);
+  text-shadow:
+    0 -1px 1px #000,
+    0 1px 1px rgba(255, 255, 255, 0.08);
+}
+
+p {
+  font-family: var(--font-sans);
+  color: var(--hw-text-dim);
+  line-height: 1.7;
+}
+
+a {
+  color: var(--hw-accent-lcd);
+  text-decoration: none;
+}
+a:hover {
+  text-shadow: var(--hw-glow-lcd);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--font-mono);
+}
+
+input,
+textarea,
+select {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--hw-text-lcd);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--hw-recessed-well);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--hw-border-mid);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hw-border-bright);
+}
+
+/* ── Utilities ──────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,342 @@
+/* ── Sidebar chassis ────────────────────────────────────── */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 240px;
+  z-index: var(--z-sticky);
+  display: flex;
+  flex-direction: column;
+
+  /* Heavy dark polymer casing */
+  background: linear-gradient(180deg, #1a1a1a 0%, #111111 100%);
+  border-right: 1px solid #000;
+
+  /* Right edge catches the light */
+  box-shadow:
+    inset -1px 0 0 rgba(255, 255, 255, 0.04),
+    4px 0 24px rgba(0, 0, 0, 0.6);
+}
+
+/* ── Logo panel ─────────────────────────────────────────── */
+.logoPanel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 16px 18px;
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
+  flex-shrink: 0;
+}
+
+.logoMark {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  background: #0f0f0f;
+  color: var(--hw-accent-trigger);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #333;
+  border-top-color: #444;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.6),
+    0 0 10px rgba(255, 85, 0, 0.2);
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  min-width: 0;
+}
+
+.logoName {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--hw-text-stenciled);
+  text-shadow:
+    0 -1px 1px #000,
+    0 1px 1px rgba(255, 255, 255, 0.08);
+}
+
+.logoSub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--hw-text-dim);
+}
+
+/* Green power LED */
+.powerLed {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hw-accent-lcd);
+  flex-shrink: 0;
+  box-shadow:
+    0 0 4px var(--hw-accent-lcd),
+    0 0 10px rgba(51, 255, 0, 0.4);
+  animation: ledPulse 3s ease-in-out infinite;
+}
+
+@keyframes ledPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* ── Operator panel ──────────────────────────────────────── */
+.operatorPanel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03);
+  flex-shrink: 0;
+}
+
+.operatorAvatar {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: #0d0d0d;
+  border: 1px solid #2a2a2a;
+  border-top-color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--hw-accent-trigger);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.operatorInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.operatorName {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--hw-text-stenciled);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.operatorEmail {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--hw-text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Nav ────────────────────────────────────────────────── */
+.nav {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 10px 8px;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.navLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--hw-text-dim);
+  padding: 0 6px;
+  margin-bottom: 6px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  position: relative;
+  border: 1px solid transparent;
+  transition: all 0.1s ease;
+}
+
+.navItem:hover:not(.navItemActive) {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.04);
+}
+
+/* Active nav — raised panel effect */
+.navItemActive {
+  background: linear-gradient(180deg, #2a2a2a 0%, #1e1e1e 100%);
+  border-color: #000;
+  border-top-color: #3a3a3a;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.navIcon {
+  font-size: 14px;
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+  color: var(--hw-text-dim);
+  transition: color 0.1s ease;
+}
+
+.navItemActive .navIcon {
+  color: var(--hw-accent-trigger);
+  text-shadow: 0 0 8px rgba(255, 102, 0, 0.4);
+}
+
+.navItemLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--hw-text-dim);
+  flex: 1;
+  transition: color 0.1s ease;
+}
+
+.navItemActive .navItemLabel {
+  color: var(--hw-text-stenciled);
+}
+
+/* Green active LED dot on the right */
+.activeIndicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: transparent;
+  flex-shrink: 0;
+  transition: all 0.1s ease;
+}
+
+.navItemActive .activeIndicator {
+  background: var(--hw-accent-lcd);
+  box-shadow:
+    0 0 4px var(--hw-accent-lcd),
+    0 0 8px rgba(51, 255, 0, 0.3);
+}
+
+/* ── Spacer ─────────────────────────────────────────────── */
+.spacer {
+  flex: 1;
+}
+
+/* ── Status panel ───────────────────────────────────────── */
+.statusPanel {
+  padding: 12px 16px;
+  border-top: 1px solid #000;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  flex-shrink: 0;
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.statusDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--hw-accent-lcd);
+  box-shadow: 0 0 4px var(--hw-accent-lcd);
+  flex-shrink: 0;
+}
+
+.statusText {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--hw-accent-lcd);
+  text-shadow: var(--hw-glow-lcd);
+}
+
+/* ── Logout button ──────────────────────────────────────── */
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--hw-text-dim);
+  background: transparent;
+  border: none;
+  border-top: 1px solid #000;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  text-align: left;
+}
+
+.logoutBtn:hover {
+  color: var(--hw-accent-danger);
+  background: rgba(255, 51, 51, 0.04);
+  text-shadow: var(--hw-glow-danger);
+}
+
+/* ── Mobile backdrop ─────────────────────────────────────── */
+.backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: calc(var(--z-sticky) - 1);
+}
+
+/* ── Mobile: sidebar slides in ──────────────────────────── */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .backdrop {
+    display: block;
+  }
+}

@@ -1,0 +1,65 @@
+.usernameWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Availability indicator ─────────────────────────────── */
+.indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 0 0 2px;
+  transition: color 0.15s ease;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+  box-shadow: 0 0 4px currentColor;
+}
+
+/* Status colors */
+.checking {
+  color: var(--hw-text-dim);
+}
+
+.available {
+  color: var(--hw-accent-lcd);
+  text-shadow: var(--hw-glow-lcd);
+}
+
+.taken {
+  color: var(--hw-accent-danger);
+  text-shadow: var(--hw-glow-danger);
+}
+
+.error {
+  color: #ffaa00;
+}
+
+/* Spinner for checking state */
+.spinner {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-top-color: var(--hw-text-stenciled);
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

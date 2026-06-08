@@ -1,0 +1,103 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+  box-shadow: 0 0 4px currentColor;
+}
+
+/* Generic */
+.default {
+  background: #1a1a1a;
+  color: var(--hw-text-dim);
+  border-color: #333;
+}
+.success {
+  background: #0a1a0a;
+  color: var(--hw-accent-lcd);
+  border-color: #1a4d1a;
+  box-shadow: 0 0 6px rgba(51, 255, 0, 0.1);
+}
+.warning {
+  background: #1a1000;
+  color: #ffaa00;
+  border-color: #4d3300;
+  box-shadow: 0 0 6px rgba(255, 170, 0, 0.1);
+}
+.danger {
+  background: #1a0000;
+  color: var(--hw-accent-danger);
+  border-color: #4d0000;
+  box-shadow: 0 0 6px rgba(255, 51, 51, 0.1);
+}
+.info {
+  background: #00111a;
+  color: var(--hw-accent-info);
+  border-color: #003366;
+  box-shadow: 0 0 6px rgba(0, 136, 255, 0.1);
+}
+
+/* Task status */
+.todo {
+  background: #1a1a1a;
+  color: var(--hw-text-stenciled);
+  border-color: #333;
+}
+.in_progress {
+  background: #00111a;
+  color: var(--hw-accent-info);
+  border-color: #003366;
+  box-shadow: 0 0 6px rgba(0, 136, 255, 0.1);
+}
+.review {
+  background: #1a1000;
+  color: #ffaa00;
+  border-color: #4d3300;
+  box-shadow: 0 0 6px rgba(255, 170, 0, 0.1);
+}
+.done {
+  background: #0a1a0a;
+  color: var(--hw-accent-lcd);
+  border-color: #1a4d1a;
+  box-shadow: 0 0 6px rgba(51, 255, 0, 0.1);
+}
+
+/* Priority */
+.low {
+  background: #111a11;
+  color: #558855;
+  border-color: #224422;
+}
+.medium {
+  background: #00111a;
+  color: var(--hw-accent-info);
+  border-color: #003366;
+}
+.high {
+  background: #1a1000;
+  color: #ffaa00;
+  border-color: #4d3300;
+}
+.urgent {
+  background: #1a0000;
+  color: var(--hw-accent-danger);
+  border-color: #4d0000;
+  box-shadow: 0 0 8px rgba(255, 51, 51, 0.15);
+}

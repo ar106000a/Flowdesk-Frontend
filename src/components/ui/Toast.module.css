@@ -1,0 +1,114 @@
+.container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 380px;
+  width: calc(100vw - 48px);
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--hw-border-dark);
+  border-top-color: var(--hw-border-bright);
+  background: linear-gradient(
+    180deg,
+    var(--hw-surface-light) 0%,
+    var(--hw-surface-dark) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 24px rgba(0, 0, 0, 0.8);
+  animation: slideIn 200ms ease;
+  font-family: var(--font-mono);
+}
+
+.icon {
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-weight: 700;
+}
+
+.message {
+  flex: 1;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.3px;
+  font-family: var(--font-mono);
+}
+
+.dismiss {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 10px;
+  opacity: 0.4;
+  flex-shrink: 0;
+  padding: 2px;
+  font-family: var(--font-mono);
+  transition: opacity var(--transition-fast);
+  color: var(--hw-text-bright);
+}
+.dismiss:hover {
+  opacity: 1;
+}
+
+/* Variants — LED indicator colors */
+.success {
+  border-color: #1a4d1a;
+  border-top-color: #33ff00;
+}
+.success .icon,
+.success .message {
+  color: var(--hw-accent-lcd);
+  text-shadow: var(--hw-glow-lcd);
+}
+
+.error {
+  border-color: #4d0000;
+  border-top-color: var(--hw-accent-danger);
+}
+.error .icon,
+.error .message {
+  color: var(--hw-accent-danger);
+  text-shadow: var(--hw-glow-danger);
+}
+
+.warning {
+  border-color: #4d3300;
+  border-top-color: #ffaa00;
+}
+.warning .icon,
+.warning .message {
+  color: #ffaa00;
+  text-shadow: 0 0 10px rgba(255, 170, 0, 0.2);
+}
+
+.info {
+  border-color: #003366;
+  border-top-color: var(--hw-accent-info);
+}
+.info .icon,
+.info .message {
+  color: var(--hw-accent-info);
+  text-shadow: var(--hw-glow-info);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

@@ -1,0 +1,132 @@
+.header {
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #1a1a1a;
+  /* Engraved section separator */
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.title {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--hw-text-stenciled);
+  text-shadow:
+    0 -1px 1px #000,
+    0 1px 1px rgba(255, 255, 255, 0.1);
+  margin: 0 0 6px;
+}
+
+.subtitle {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--hw-text-dim);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Form ───────────────────────────────────────────────── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── API error banner ───────────────────────────────────── */
+.apiError {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #0d0000;
+  border: 1px solid #4d0000;
+  border-top-color: var(--hw-accent-danger);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--hw-accent-danger);
+  letter-spacing: 0.3px;
+  box-shadow: var(--hw-shadow-recessed), var(--hw-glow-danger);
+}
+
+.apiErrorIcon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--hw-accent-danger);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(255, 51, 51, 0.3);
+}
+
+/* ── Submit — Tactical Trigger ──────────────────────────── */
+.submitBtn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 16px;
+  font-size: 13px;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--hw-text-bright);
+  cursor: pointer;
+  border-radius: 6px;
+  background: linear-gradient(
+    180deg,
+    var(--hw-accent-trigger) 0%,
+    var(--hw-accent-trigger-dark) 100%
+  );
+  border: 1px solid #882200;
+  border-top-color: #ffaa66;
+  text-shadow: 0 -1px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--hw-shadow-button-3d);
+  transition: all var(--transition-snap);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+}
+.submitBtn:hover:not(:disabled) {
+  background: linear-gradient(180deg, #ff7722 0%, #dd5500 100%);
+}
+.submitBtn:active:not(:disabled) {
+  transform: translateY(6px);
+  box-shadow: var(--hw-shadow-button-pressed);
+}
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+.footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--hw-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

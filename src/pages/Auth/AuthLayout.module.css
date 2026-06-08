@@ -1,0 +1,117 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-family: var(--font-mono);
+}
+
+/* ── Branding ───────────────────────────────────────────── */
+.branding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  width: 56px;
+  height: 56px;
+  background: #1a1a1a;
+  color: var(--hw-accent-trigger);
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--hw-border-mid);
+  border-top-color: #5a5a5a;
+  border-bottom-color: #050505;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.6),
+    0 4px 10px rgba(0, 0, 0, 0.8),
+    0 0 15px rgba(255, 85, 0, 0.25);
+}
+
+.appName {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--hw-text-stenciled);
+  text-shadow:
+    0 -1px 1px #000,
+    0 1px 1px rgba(255, 255, 255, 0.15);
+  margin: 0;
+}
+
+.tagline {
+  font-size: 11px;
+  color: var(--hw-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+/* ── Card chassis ───────────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 440px;
+  background: linear-gradient(
+    180deg,
+    var(--hw-surface-light) 0%,
+    var(--hw-surface-dark) 100%
+  );
+  border-radius: 12px;
+  padding: 32px;
+  border: 1px solid var(--hw-border-dark);
+  border-top-color: var(--hw-border-bright);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 24px 48px rgba(0, 0, 0, 0.9),
+    0 8px 16px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.card::before,
+.card::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #111;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 1),
+    0 1px 1px rgba(255, 255, 255, 0.15);
+}
+.card::before {
+  top: 16px;
+  left: 16px;
+}
+.card::after {
+  top: 16px;
+  right: 16px;
+}
+
+/* ── Back link ──────────────────────────────────────────── */
+.backLink {
+  margin-top: 20px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--hw-text-dim);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.backLink:hover {
+  color: var(--hw-accent-lcd);
+  text-shadow: var(--hw-glow-lcd);
+}
