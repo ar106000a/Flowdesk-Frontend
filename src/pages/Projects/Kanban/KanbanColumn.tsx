@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { useDroppable } from "@dnd-kit/core";
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import axios from "axios";
 import api from "../../../lib/api";
 import { useToast } from "../../../hooks/UseToast";
-import { TaskCard } from "./TaskCard.tsx";
+import { TaskCard } from "./TaskCard";
 import type { Task, TaskStatus } from "../../../types";
 import styles from "./KanbanColumn.module.css";
 
@@ -17,6 +14,7 @@ interface KanbanColumnProps {
   color: string;
   tasks: Task[];
   projectId: string;
+  onTaskClick: (task: Task) => void;
   onTaskCreated: (task: Task) => void;
 }
 
@@ -27,11 +25,12 @@ export function KanbanColumn({
   tasks,
   projectId,
   onTaskCreated,
+  onTaskClick,
 }: KanbanColumnProps) {
   const { addToast } = useToast();
 
-  const [isAdding, setIsAdding] = useState(false);
-  const [newTitle, setNewTitle] = useState("");
+  const [isAdding, setIsAdding]     = useState(false);
+  const [newTitle, setNewTitle]     = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // useDroppable makes this column a valid drop target
@@ -52,10 +51,7 @@ export function KanbanColumn({
       setIsAdding(false);
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        addToast(
-          err.response?.data?.message || "Failed to create task",
-          "error",
-        );
+        addToast(err.response?.data?.message || "Failed to create task", "error");
       }
     } finally {
       setIsSubmitting(false);
@@ -64,13 +60,11 @@ export function KanbanColumn({
 
   return (
     <div className={`${styles.column} ${isOver ? styles.columnOver : ""}`}>
+
       {/* ── Column header ──────────────────────────────────── */}
       <div className={styles.header}>
         {/* Status LED */}
-        <span
-          className={styles.led}
-          style={{ background: color, boxShadow: `0 0 6px ${color}` }}
-        />
+        <span className={styles.led} style={{ background: color, boxShadow: `0 0 6px ${color}` }} />
         <h3 className={styles.title} style={{ color }}>
           {label}
         </h3>
@@ -95,7 +89,7 @@ export function KanbanColumn({
           strategy={verticalListSortingStrategy}
         >
           {tasks.map((task) => (
-            <TaskCard key={task.id} task={task} />
+            <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task)} />
           ))}
         </SortableContext>
 
@@ -129,10 +123,7 @@ export function KanbanColumn({
             <button
               type="button"
               className={styles.cancelBtn}
-              onClick={() => {
-                setIsAdding(false);
-                setNewTitle("");
-              }}
+              onClick={() => { setIsAdding(false); setNewTitle(""); }}
             >
               ✕
             </button>

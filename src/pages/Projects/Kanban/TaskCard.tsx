@@ -21,7 +21,6 @@ interface TaskCardProps {
 }
 
 export function TaskCard({ task, isDragging = false, onClick }: TaskCardProps) {
-  // useSortable gives us drag handle props + transform styles
   const {
     attributes,
     listeners,
@@ -38,6 +37,12 @@ export function TaskCard({ task, isDragging = false, onClick }: TaskCardProps) {
 
   const priorityColor = PRIORITY_COLOR[task.priority] ?? "var(--hw-text-dim)";
 
+  function handleClick() {
+    // Don't open modal if we just finished dragging
+    if (isSortableDragging) return;
+    onClick?.();
+  }
+
   return (
     <div
       ref={setNodeRef}
@@ -46,38 +51,30 @@ export function TaskCard({ task, isDragging = false, onClick }: TaskCardProps) {
         styles.card,
         isSortableDragging || isDragging ? styles.dragging : "",
       ].filter(Boolean).join(" ")}
-      onClick={onClick}
       {...attributes}
       {...listeners}
+      onClick={handleClick}
     >
-      {/* Priority wire strip on left */}
       <div
         className={styles.priorityStrip}
         style={{ background: priorityColor }}
       />
-
       <div className={styles.body}>
         <p className={styles.title}>{task.title}</p>
-
         {task.description && (
           <p className={styles.desc}>{task.description}</p>
         )}
-
         <div className={styles.footer}>
-          {/* Priority badge */}
           <span
             className={styles.priorityBadge}
             style={{ color: priorityColor, borderColor: priorityColor }}
           >
             {PRIORITY_LABEL[task.priority]}
           </span>
-
-          {/* Due date */}
           {task.due_date && (
             <span className={styles.dueDate}>
               {new Date(task.due_date).toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
+                month: "short", day: "numeric",
               })}
             </span>
           )}
