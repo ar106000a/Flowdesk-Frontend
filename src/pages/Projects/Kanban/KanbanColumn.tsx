@@ -24,7 +24,6 @@ export function KanbanColumn({
   color,
   tasks,
   projectId,
-  onTaskCreated,
   onTaskClick,
 }: KanbanColumnProps) {
   const { addToast } = useToast();
@@ -42,11 +41,11 @@ export function KanbanColumn({
 
     setIsSubmitting(true);
     try {
-      const res = await api.post(`/api/projects/${projectId}/tasks`, {
+       await api.post(`/api/projects/${projectId}/tasks`, {
         title: newTitle.trim(),
         status: id,
       });
-      onTaskCreated(res.data.data as Task);
+      // onTaskCreated(res.data.data as Task);
       setNewTitle("");
       setIsAdding(false);
     } catch (err) {

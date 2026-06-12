@@ -31,8 +31,6 @@ export function TimeLogger({ taskId, projectId }: TimeLoggerProps) {
     new Date().toISOString().split("T")[0],
   );
 
-
-
   useEffect(() => {
     let isMounted = true;
 
@@ -47,7 +45,7 @@ export function TimeLogger({ taskId, projectId }: TimeLoggerProps) {
         }
       } catch {
         if (isMounted) {
-          addToast("Failed to fetch");
+          addToast("Failed to fetch", "error");
         }
       } finally {
         if (isMounted) {
@@ -120,16 +118,13 @@ export function TimeLogger({ taskId, projectId }: TimeLoggerProps) {
 
     setIsSubmitting(true);
     try {
-      const res = await api.post(
-        `/api/projects/${projectId}/tasks/${taskId}/time`,
-        {
-          minutes: totalMinutes,
-          description: description.trim() || undefined,
-          logged_at: loggedAt,
-          billable,
-        },
-      );
-      setLogs((prev) => [res.data.data, ...prev]);
+      await api.post(`/api/projects/${projectId}/tasks/${taskId}/time`, {
+        minutes: totalMinutes,
+        description: description.trim() || undefined,
+        logged_at: loggedAt,
+        billable,
+      });
+      // setLogs((prev) => [res.data.data, ...prev]);
       resetForm();
     } catch (err) {
       if (axios.isAxiosError(err)) {

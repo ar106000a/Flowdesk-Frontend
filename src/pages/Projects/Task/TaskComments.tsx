@@ -5,6 +5,7 @@ import { useAuth } from "../../../hooks/UseAuth";
 import { useSocket } from "../../../hooks/UseSocket";
 import type { Comment } from "../../../types";
 import styles from "./TaskComments.module.css";
+import { useToast } from "../../../hooks/UseToast";
 
 interface TaskCommentsProps {
   taskId: string;
@@ -14,7 +15,7 @@ interface TaskCommentsProps {
 export function TaskComments({ taskId, projectId }: TaskCommentsProps) {
   const { user } = useAuth();
   const { socket } = useSocket();
-
+  const { addToast } = useToast();
   const [comments, setComments] = useState<Comment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [content, setContent] = useState("");
@@ -53,19 +54,33 @@ export function TaskComments({ taskId, projectId }: TaskCommentsProps) {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [comments]);
 
-  // Real-time comment events
+  // 2. Real-time WebSocket Updates (Race-Condition Guarded)
   useEffect(() => {
-    function onCommentAdded({
-      comment,
-      taskId: tid,
-    }: {
-      comment: Comment;
-      taskId: string;
-    }) {
-      if (tid !== taskId) return;
+    function onCommentCreated(incomingComment: Comment) {
+      // Guard: Ensure comment belongs to this task
+      if (incomingComment.task_id !== taskId) return;
+
       setComments((prev) => {
-        if (prev.find((c) => c.id === comment.id)) return prev;
-        return [...prev, comment];
+        // Guard A: If it already exists by its permanent database ID, drop it
+        if (prev.some((c) => c.id === incomingComment.id)) return prev;
+
+        // Guard B: Check if there's an optimistic temporary comment matching this content from this user
+        const optimisticMatch = prev.find(
+          (c) =>
+            c.id.toString().startsWith("temp-") &&
+            c.content === incomingComment.content &&
+            c.user_id === incomingComment.user_id,
+        );
+
+        if (optimisticMatch) {
+          // The socket beat the HTTP response! Swap the temp object with the real one right here
+          return prev.map((c) =>
+            c.id === optimisticMatch.id ? incomingComment : c,
+          );
+        }
+
+        // If no match, it's genuinely a comment from someone else. Add it to the list.
+        return [...prev, incomingComment];
       });
     }
 
@@ -80,19 +95,22 @@ export function TaskComments({ taskId, projectId }: TaskCommentsProps) {
       setComments((prev) => prev.filter((c) => c.id !== commentId));
     }
 
-    socket.on("comment:added", onCommentAdded);
+    socket.on("comment:created", onCommentCreated);
     socket.on("comment:deleted", onCommentDeleted);
+
     return () => {
-      socket.off("comment:added", onCommentAdded);
+      socket.off("comment:created", onCommentCreated);
       socket.off("comment:deleted", onCommentDeleted);
     };
   }, [socket, taskId]);
 
+  // 3. Form Submission (Race-Condition Guarded)
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
     if (!content.trim() || isSubmitting) return;
 
     setIsSubmitting(true);
+
     const optimistic: Comment = {
       id: `temp-${Date.now()}`,
       task_id: taskId,
@@ -102,7 +120,7 @@ export function TaskComments({ taskId, projectId }: TaskCommentsProps) {
       updated_at: new Date().toISOString(),
     };
 
-    // Optimistic add
+    // Trigger optimistic UI snap
     setComments((prev) => [...prev, optimistic]);
     setContent("");
 
@@ -111,36 +129,37 @@ export function TaskComments({ taskId, projectId }: TaskCommentsProps) {
         `/api/projects/${projectId}/tasks/${taskId}/comments`,
         { content: optimistic.content },
       );
-      // Replace optimistic with real
-      setComments((prev) =>
-        prev.map((c) => (c.id === optimistic.id ? res.data.data : c)),
-      );
+
+      // Safe State Swap: Only swap if the WebSocket listener hasn't already swapped it out
+      setComments((prev) => {
+        const tempExists = prev.some((c) => c.id === optimistic.id);
+        if (!tempExists) return prev; // Socket already handled it!
+
+        return prev.map((c) => (c.id === optimistic.id ? res.data.data : c));
+      });
     } catch {
-      // Rollback
+      // Rollback on failure, restoring text to the input field
       setComments((prev) => prev.filter((c) => c.id !== optimistic.id));
       setContent(optimistic.content);
+      addToast("Failed to post comment", "error");
     } finally {
       setIsSubmitting(false);
     }
   }
 
+  // 4. Delete Handler
   async function handleDelete(commentId: string) {
+    const originalComments = comments;
     setComments((prev) => prev.filter((c) => c.id !== commentId));
+
     try {
       await api.delete(
         `/api/projects/${projectId}/tasks/${taskId}/comments/${commentId}`,
       );
-    } catch {
-      // Refetch if delete fails
-      setIsLoading(true);
-      try {
-        const res = await api.get(
-          `/api/projects/${projectId}/tasks/${taskId}/comments`,
-        );
-        setComments(res.data.data);
-      } finally {
-        setIsLoading(false);
-      }
+    } catch (err: unknown) {
+      setComments(originalComments);
+      addToast("Could not delete comment. Server Error!", "error");
+      console.error(err);
     }
   }
 
