@@ -6,6 +6,7 @@ import { Modal } from "../../../components/ui/Modal";
 import { TaskComments } from "./TaskComments";
 import type { Task, TaskStatus, TaskPriority } from "../../../types";
 import styles from "./TaskModal.module.css";
+import { TimeLogger } from "./TimeLogger";
 
 const STATUS_OPTIONS: { value: TaskStatus; label: string }[] = [
   { value: "todo", label: "To Do" },
@@ -22,7 +23,7 @@ const PRIORITY_OPTIONS: { value: TaskPriority; label: string }[] = [
 ];
 
 interface TaskModalProps {
-  task: Task ;
+  task: Task;
   projectId: string;
   open: boolean;
   onClose: () => void;
@@ -45,12 +46,28 @@ export function TaskModal({
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-// Initialize state directly from the task prop values
+  // Initialize state directly from the task prop values
   const [title, setTitle] = useState(task?.title ?? "");
   const [description, setDescription] = useState(task?.description ?? "");
   const [status, setStatus] = useState<TaskStatus>(task?.status ?? "todo");
-  const [priority, setPriority] = useState<TaskPriority>(task?.priority ?? "medium");
+  const [priority, setPriority] = useState<TaskPriority>(
+    task?.priority ?? "medium",
+  );
   const [dueDate, setDueDate] = useState(task?.due_date ?? "");
+
+  // 1. Store the previous task to track modifications / transitions
+  const [prevTask, setPrevTask] = useState(task);
+
+  // 2. Adjust state conditionally during render to avoid cascading effect renders
+  if (task !== prevTask) {
+    setPrevTask(task);
+    setTitle(task?.title ?? "");
+    setDescription(task?.description ?? "");
+    setStatus(task?.status ?? "todo");
+    setPriority(task?.priority ?? "medium");
+    setDueDate(task?.due_date ?? "");
+    setIsEditing(false);
+  }
 
   if (!task) return null;
 
@@ -233,6 +250,14 @@ export function TaskModal({
               </p>
             )}
           </div>
+
+          {/* Time logging — hidden while editing task details */}
+          {!isEditing && (
+            <>
+              <div className={styles.divider} />
+              <TimeLogger taskId={task.id} projectId={projectId} />
+            </>
+          )}
 
           {/* Actions */}
           <div className={styles.actions}>

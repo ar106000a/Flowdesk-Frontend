@@ -1,0 +1,346 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sectionLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--hw-accent-trigger);
+  opacity: 0.7;
+  margin: 0;
+}
+
+.addBtn {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--hw-text-dim);
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+.addBtn:hover {
+  color: var(--hw-accent-lcd);
+  border-color: var(--hw-accent-lcd);
+  box-shadow: var(--hw-glow-lcd);
+}
+
+/* ── Totals readout ─────────────────────────────────────── */
+.totals {
+  display: flex;
+  gap: 16px;
+  padding: 10px 12px;
+  background: #0d0d0d;
+  border: 1px solid #1a1a1a;
+  border-top-color: #222;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.totalItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.totalLabel {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--hw-text-dim);
+}
+
+.totalValue {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--hw-text-stenciled);
+}
+
+.totalValueBillable {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--hw-accent-lcd);
+  text-shadow: var(--hw-glow-lcd);
+}
+
+/* ── Add form ───────────────────────────────────────────── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  background: #0d0d0d;
+  border: 1px solid #1a1a1a;
+  border-radius: 5px;
+}
+
+.durationRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.durationField {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.durationInput {
+  width: 100%;
+  padding: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--hw-accent-lcd);
+  background: var(--hw-recessed-well);
+  border: 1px solid #000;
+  border-bottom-color: #2a2a2a;
+  border-radius: 4px;
+  box-shadow: var(--hw-shadow-recessed);
+  outline: none;
+  text-align: center;
+}
+.durationInput:focus {
+  border-color: var(--hw-accent-lcd);
+  box-shadow: var(--hw-shadow-recessed), var(--hw-glow-lcd);
+}
+.durationInput::placeholder {
+  color: var(--hw-accent-lcd-dim);
+}
+
+.durationUnit {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  color: var(--hw-text-dim);
+  flex-shrink: 0;
+}
+
+.dateInput {
+  padding: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--hw-accent-lcd);
+  background: var(--hw-recessed-well);
+  border: 1px solid #000;
+  border-bottom-color: #2a2a2a;
+  border-radius: 4px;
+  box-shadow: var(--hw-shadow-recessed);
+  outline: none;
+  flex-shrink: 0;
+}
+.dateInput:focus {
+  border-color: var(--hw-accent-lcd);
+  box-shadow: var(--hw-shadow-recessed), var(--hw-glow-lcd);
+}
+
+.descInput {
+  width: 100%;
+  padding: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--hw-accent-lcd);
+  background: var(--hw-recessed-well);
+  border: 1px solid #000;
+  border-bottom-color: #2a2a2a;
+  border-radius: 4px;
+  box-shadow: var(--hw-shadow-recessed);
+  outline: none;
+}
+.descInput::placeholder {
+  color: var(--hw-accent-lcd-dim);
+}
+.descInput:focus {
+  border-color: var(--hw-accent-lcd);
+  box-shadow: var(--hw-shadow-recessed), var(--hw-glow-lcd);
+}
+
+.formFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--hw-text-dim);
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--hw-accent-lcd);
+  cursor: pointer;
+}
+
+.submitBtn {
+  padding: 7px 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--hw-text-bright);
+  background: linear-gradient(
+    180deg,
+    var(--hw-accent-trigger) 0%,
+    var(--hw-accent-trigger-dark) 100%
+  );
+  border: 1px solid #882200;
+  border-top-color: #ffaa66;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 3px 0 var(--hw-accent-trigger-edge);
+  transition: all 0.05s ease;
+}
+.submitBtn:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.4),
+    0 0 0 var(--hw-accent-trigger-edge);
+}
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Log list ───────────────────────────────────────────── */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.list::-webkit-scrollbar {
+  width: 4px;
+}
+.list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.list::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 2px;
+}
+
+.empty {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--hw-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+  padding: 16px 0;
+}
+
+.logItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  background: #0d0d0d;
+  border: 1px solid #1a1a1a;
+  border-radius: 4px;
+}
+
+.logMain {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.logDuration {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--hw-accent-lcd);
+  text-shadow: var(--hw-glow-lcd);
+  flex-shrink: 0;
+}
+
+.logDesc {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--hw-text-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.logDate {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--hw-text-dim);
+}
+
+.billableTag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--hw-accent-lcd);
+  background: rgba(51, 255, 0, 0.08);
+  border: 1px solid rgba(51, 255, 0, 0.2);
+  border-radius: 3px;
+  padding: 1px 5px;
+}
+
+.deleteBtn {
+  background: none;
+  border: none;
+  color: var(--hw-text-dim);
+  font-size: 9px;
+  cursor: pointer;
+  padding: 2px 4px;
+  opacity: 0;
+  transition:
+    opacity 0.15s,
+    color 0.15s;
+}
+.logItem:hover .deleteBtn {
+  opacity: 1;
+}
+.deleteBtn:hover {
+  color: var(--hw-accent-danger);
+}
