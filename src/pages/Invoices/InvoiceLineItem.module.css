@@ -1,0 +1,135 @@
+.row {
+  display: grid;
+  grid-template-columns: 1fr 70px 130px 100px 32px;
+  gap: 8px;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 10px;
+    background: #0d0d0d;
+    border: 1px solid #1a1a1a;
+    border-radius: 5px;
+  }
+}
+
+.descInput,
+.qtyInput,
+.priceInput {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--hw-accent-lcd);
+  background: var(--hw-recessed-well);
+  border: 1px solid #000;
+  border-bottom-color: #2a2a2a;
+  border-radius: 4px;
+  box-shadow: var(--hw-shadow-recessed);
+  outline: none;
+  padding: 8px 10px;
+  width: 100%;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.descInput::placeholder,
+.qtyInput::placeholder,
+.priceInput::placeholder {
+  color: var(--hw-accent-lcd-dim);
+}
+
+.descInput:focus,
+.qtyInput:focus,
+.priceInput:focus {
+  border-color: var(--hw-accent-lcd);
+  box-shadow: var(--hw-shadow-recessed), var(--hw-glow-lcd);
+}
+
+.qtyInput {
+  text-align: center;
+}
+
+.priceWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.currencyPrefix {
+  position: absolute;
+  left: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--hw-text-dim);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.priceInput {
+  padding-left: 38px;
+}
+
+.amountWrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8px 10px;
+}
+
+.amount {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--hw-text-stenciled);
+}
+
+@media (max-width: 640px) {
+  .amountWrap {
+    justify-content: space-between;
+  }
+  .amountWrap::before {
+    content: "Amount";
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--hw-text-dim);
+  }
+}
+
+.removeBtn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--hw-text-dim);
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  flex-shrink: 0;
+}
+
+.removeBtn:hover:not(:disabled) {
+  color: var(--hw-accent-danger);
+  border-color: var(--hw-accent-danger);
+  box-shadow: var(--hw-glow-danger);
+}
+
+.removeBtn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .removeBtn {
+    width: 100%;
+    height: 32px;
+  }
+}

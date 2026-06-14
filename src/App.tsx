@@ -19,6 +19,7 @@ import ResetPasswordForm from "./pages/Auth/ResetPasswordForm";
 // App pages
 import Projects from "./pages/Projects/Projects";
 import ProjectDetail from "./pages/Projects/ProjectDetail";
+import Invoices from "./pages/Invoices/Invoices";
 
 function PlaceholderPage({ name }: { name: string }) {
   return (
@@ -52,22 +53,6 @@ function AppRoutes() {
           <Route path="/auth/verify" element={<VerifyForm />} />
           <Route path="/auth/forgot" element={<ForgotForm />} />
           <Route path="/auth/reset-verify" element={<ResetVerifyForm />} />
-          {/* <Route
-            path="/dashboard"
-            element={
-              <PageShell>
-                <PlaceholderPage name="Dashboard" />
-              </PageShell>
-            }
-          ></Route>
-          <Route
-            path="/projects"
-            element={
-              <PageShell>
-                <Projects></Projects>
-              </PageShell>
-            }
-          ></Route> */}
           <Route path="/auth/reset-password" element={<ResetPasswordForm />} />
         </Route>
 
@@ -111,7 +96,7 @@ function AppRoutes() {
             path="/invoices"
             element={
               <PageShell>
-                <PlaceholderPage name="Invoices" />
+                <Invoices />
               </PageShell>
             }
           />

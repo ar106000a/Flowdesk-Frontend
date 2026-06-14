@@ -1,0 +1,55 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 4px currentColor;
+}
+
+.draft {
+  color: var(--hw-text-dim);
+  border-color: #333;
+  background: #111;
+}
+
+.sent {
+  color: var(--hw-accent-info);
+  border-color: #003366;
+  background: #00111a;
+}
+
+.paid {
+  color: var(--hw-accent-lcd);
+  border-color: #1a4d1a;
+  background: #0a1a0a;
+  box-shadow: var(--hw-glow-lcd);
+}
+
+.overdue {
+  color: var(--hw-accent-danger);
+  border-color: #4d0000;
+  background: #1a0000;
+  box-shadow: var(--hw-glow-danger);
+}
+
+.cancelled {
+  color: var(--hw-text-dim);
+  border-color: #333;
+  background: #111;
+  opacity: 0.6;
+  text-decoration: line-through;
+}

@@ -4,8 +4,9 @@ import axios from "axios";
 import api from "../../lib/api";
 import { useToast } from "../../hooks/UseToast";
 import { KanbanBoard } from "./Kanban/KanbanBoard";
-import type { Project } from "../../types";
+import type { Invoice, Project } from "../../types";
 import styles from "./ProjectDetail.module.css";
+import { InvoiceBuilder } from "../Invoices/InvoiceBuilder";
 
 export default function ProjectDetail() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -14,6 +15,7 @@ export default function ProjectDetail() {
 
   const [project, setProject] = useState<Project | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showInvoiceBuilder, setShowInvoiceBuilder] = useState(false);
 
   //   async function fetchProject() {
   //     try {
@@ -54,6 +56,11 @@ export default function ProjectDetail() {
       }
     })();
   }, [projectId, addToast, navigate]);
+
+  function handleInvoiceCreated(invoice: Invoice) {
+    setShowInvoiceBuilder(false);
+    navigate(`/invoices/${invoice.id}`);
+  }
   if (isLoading) {
     return (
       <div className={styles.loading}>
@@ -104,11 +111,27 @@ export default function ProjectDetail() {
               {project.status.toUpperCase()}
             </span>
           </div>
+
+          <button
+            type="button"
+            className={styles.invoiceBtn}
+            onClick={() => setShowInvoiceBuilder(true)}
+          >
+            + New Invoice
+          </button>
         </div>
       </div>
 
       {/* ── Kanban board ───────────────────────────────────── */}
       <KanbanBoard projectId={projectId} />
+
+      {/* ── Invoice builder modal ────────────────────────────── */}
+      <InvoiceBuilder
+        open={showInvoiceBuilder}
+        onClose={() => setShowInvoiceBuilder(false)}
+        project={project}
+        onCreated={handleInvoiceCreated}
+      />
     </div>
   );
 }
