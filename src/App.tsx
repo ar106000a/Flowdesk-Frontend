@@ -8,18 +8,15 @@ import {
   PublicOnlyRoute,
 } from "./components/routing/RouteGuards";
 import { PageShell } from "./components/layout/PageShell";
-
-// Auth pages
 import Auth from "./pages/Auth/Auth";
 import VerifyForm from "./pages/Auth/VerifyForm";
 import ForgotForm from "./pages/Auth/ForgotForm";
 import ResetVerifyForm from "./pages/Auth/ResetVerifyForm";
 import ResetPasswordForm from "./pages/Auth/ResetPasswordForm";
-
-// App pages
 import Projects from "./pages/Projects/Projects";
 import ProjectDetail from "./pages/Projects/ProjectDetail";
 import Invoices from "./pages/Invoices/Invoices";
+import InvoiceDetail from "./pages/Invoices/InvoiceDetail";
 
 function PlaceholderPage({ name }: { name: string }) {
   return (
@@ -43,11 +40,9 @@ function PlaceholderPage({ name }: { name: string }) {
 
 function AppRoutes() {
   const { isAuthenticated } = useAuth();
-
   return (
     <SocketProvider isAuthenticated={isAuthenticated}>
       <Routes>
-        {/* ── Public-only ─────────────────────────────────── */}
         <Route element={<PublicOnlyRoute />}>
           <Route path="/auth" element={<Auth />} />
           <Route path="/auth/verify" element={<VerifyForm />} />
@@ -55,8 +50,6 @@ function AppRoutes() {
           <Route path="/auth/reset-verify" element={<ResetVerifyForm />} />
           <Route path="/auth/reset-password" element={<ResetPasswordForm />} />
         </Route>
-
-        {/* ── Fully public ─────────────────────────────────── */}
         <Route
           path="/portal/:token"
           element={<PlaceholderPage name="Client Portal" />}
@@ -65,8 +58,6 @@ function AppRoutes() {
           path="/payment/success"
           element={<PlaceholderPage name="Payment Success" />}
         />
-
-        {/* ── Protected ────────────────────────────────────── */}
         <Route element={<ProtectedRoute />}>
           <Route
             path="/dashboard"
@@ -104,7 +95,7 @@ function AppRoutes() {
             path="/invoices/:invoiceId"
             element={
               <PageShell>
-                <PlaceholderPage name="Invoice Detail" />
+                <InvoiceDetail />
               </PageShell>
             }
           />
@@ -117,7 +108,6 @@ function AppRoutes() {
             }
           />
         </Route>
-
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
