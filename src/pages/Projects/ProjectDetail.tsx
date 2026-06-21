@@ -4,9 +4,10 @@ import axios from "axios";
 import api from "../../lib/api";
 import { useToast } from "../../hooks/UseToast";
 import { KanbanBoard } from "./Kanban/KanbanBoard";
-import type { Invoice, Project } from "../../types";
+import { InvoiceBuilder } from "../Invoices/InvoiceBuilder.tsx";
+import { PortalLinkPanel } from "./PortalLinkPanel";
+import type { Project, Invoice } from "../../types";
 import styles from "./ProjectDetail.module.css";
-import { InvoiceBuilder } from "../Invoices/InvoiceBuilder";
 
 export default function ProjectDetail() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -17,50 +18,39 @@ export default function ProjectDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const [showInvoiceBuilder, setShowInvoiceBuilder] = useState(false);
 
-  //   async function fetchProject() {
-  //     try {
-  //       const res = await api.get(`/api/projects/${projectId}`);
-  //       setProject(res.data.data);
-  //     } catch (err) {
-  //       if (axios.isAxiosError(err)) {
-  //         const status = err.response?.status;
-  //         if (status === 403 || status === 404) {
-  //           addToast("Project not found or access denied.", "error");
-  //           navigate("/projects");
-  //         } else {
-  //           addToast("Failed to load project.", "error");
-  //         }
-  //       }
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   }
-  useEffect(() => {
-    if (!projectId) return;
-    (async () => {
-      try {
-        const res = await api.get(`/api/projects/${projectId}`);
-        setProject(res.data.data);
-      } catch (err) {
-        if (axios.isAxiosError(err)) {
-          const status = err.response?.status;
-          if (status === 403 || status === 404) {
-            addToast("Project not found or access denied.", "error");
-            navigate("/projects");
-          } else {
-            addToast("Failed to load project.", "error");
-          }
+  async function fetchProject() {
+    try {
+      const res = await api.get(`/api/projects/${projectId}`);
+      setProject(res.data.data);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        const status = err.response?.status;
+        if (status === 403 || status === 404) {
+          addToast("Project not found or access denied.", "error");
+          navigate("/projects");
+        } else {
+          addToast("Failed to load project.", "error");
         }
-      } finally {
-        setIsLoading(false);
       }
-    })();
-  }, [projectId, addToast, navigate]);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  useEffect(() => {
+    if (projectId) fetchProject();
+  }, [projectId]);
 
   function handleInvoiceCreated(invoice: Invoice) {
     setShowInvoiceBuilder(false);
     navigate(`/invoices/${invoice.id}`);
   }
+
+  function handlePortalUpdate(portalToken: string | null) {
+    setProject((prev) =>
+      prev ? { ...prev, portal_token: portalToken } : prev,
+    );
+  }
+
   if (isLoading) {
     return (
       <div className={styles.loading}>
@@ -74,10 +64,8 @@ export default function ProjectDetail() {
 
   return (
     <div className={styles.page}>
-      {/* ── Project header ─────────────────────────────────── */}
       <div className={styles.header}>
         <div className={styles.headerLeft}>
-          {/* Color indicator */}
           <div
             className={styles.colorDot}
             style={{
@@ -111,7 +99,6 @@ export default function ProjectDetail() {
               {project.status.toUpperCase()}
             </span>
           </div>
-
           <button
             type="button"
             className={styles.invoiceBtn}
@@ -122,10 +109,10 @@ export default function ProjectDetail() {
         </div>
       </div>
 
-      {/* ── Kanban board ───────────────────────────────────── */}
+      <PortalLinkPanel project={project} onUpdate={handlePortalUpdate} />
+
       <KanbanBoard projectId={projectId} />
 
-      {/* ── Invoice builder modal ────────────────────────────── */}
       <InvoiceBuilder
         open={showInvoiceBuilder}
         onClose={() => setShowInvoiceBuilder(false)}

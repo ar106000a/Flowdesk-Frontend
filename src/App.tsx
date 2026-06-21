@@ -3,10 +3,7 @@ import { useAuth } from "./hooks/UseAuth";
 import { AuthProvider } from "./context/AuthProvider";
 import { SocketProvider } from "./context/SocketProvider";
 import { ToastProvider } from "./context/ToastProvider";
-import {
-  ProtectedRoute,
-  PublicOnlyRoute,
-} from "./components/routing/RouteGuards";
+import { ProtectedRoute, PublicOnlyRoute } from "./components/routing/RouteGuards";
 import { PageShell } from "./components/layout/PageShell";
 import Auth from "./pages/Auth/Auth";
 import VerifyForm from "./pages/Auth/VerifyForm";
@@ -17,23 +14,13 @@ import Projects from "./pages/Projects/Projects";
 import ProjectDetail from "./pages/Projects/ProjectDetail";
 import Invoices from "./pages/Invoices/Invoices";
 import InvoiceDetail from "./pages/Invoices/InvoiceDetail";
+import ClientPortal from "./pages/Portal/ClientPortal";
 
 function PlaceholderPage({ name }: { name: string }) {
   return (
-    <div
-      style={{
-        fontFamily: "var(--font-mono)",
-        color: "var(--hw-text-stenciled)",
-      }}
-    >
-      <h2
-        style={{ textTransform: "uppercase", letterSpacing: 2, fontSize: 13 }}
-      >
-        // {name}
-      </h2>
-      <p style={{ color: "var(--hw-text-dim)", marginTop: 8, fontSize: 11 }}>
-        Module coming online...
-      </p>
+    <div style={{ fontFamily: "var(--font-mono)", color: "var(--hw-text-stenciled)" }}>
+      <h2 style={{ textTransform: "uppercase", letterSpacing: 2, fontSize: 13 }}>// {name}</h2>
+      <p style={{ color: "var(--hw-text-dim)", marginTop: 8, fontSize: 11 }}>Module coming online...</p>
     </div>
   );
 }
@@ -50,64 +37,20 @@ function AppRoutes() {
           <Route path="/auth/reset-verify" element={<ResetVerifyForm />} />
           <Route path="/auth/reset-password" element={<ResetPasswordForm />} />
         </Route>
-        <Route
-          path="/portal/:token"
-          element={<PlaceholderPage name="Client Portal" />}
-        />
-        <Route
-          path="/payment/success"
-          element={<PlaceholderPage name="Payment Success" />}
-        />
+
+        {/* Fully public — no auth, no PublicOnlyRoute restriction either */}
+        <Route path="/portal/:token" element={<ClientPortal />} />
+        <Route path="/payment/success" element={<PlaceholderPage name="Payment Success" />} />
+
         <Route element={<ProtectedRoute />}>
-          <Route
-            path="/dashboard"
-            element={
-              <PageShell>
-                <PlaceholderPage name="Dashboard" />
-              </PageShell>
-            }
-          />
-          <Route
-            path="/projects"
-            element={
-              <PageShell>
-                <Projects />
-              </PageShell>
-            }
-          />
-          <Route
-            path="/projects/:projectId"
-            element={
-              <PageShell>
-                <ProjectDetail />
-              </PageShell>
-            }
-          />
-          <Route
-            path="/invoices"
-            element={
-              <PageShell>
-                <Invoices />
-              </PageShell>
-            }
-          />
-          <Route
-            path="/invoices/:invoiceId"
-            element={
-              <PageShell>
-                <InvoiceDetail />
-              </PageShell>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <PageShell>
-                <PlaceholderPage name="Settings" />
-              </PageShell>
-            }
-          />
+          <Route path="/dashboard" element={<PageShell><PlaceholderPage name="Dashboard" /></PageShell>} />
+          <Route path="/projects" element={<PageShell><Projects /></PageShell>} />
+          <Route path="/projects/:projectId" element={<PageShell><ProjectDetail /></PageShell>} />
+          <Route path="/invoices" element={<PageShell><Invoices /></PageShell>} />
+          <Route path="/invoices/:invoiceId" element={<PageShell><InvoiceDetail /></PageShell>} />
+          <Route path="/settings" element={<PageShell><PlaceholderPage name="Settings" /></PageShell>} />
         </Route>
+
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
