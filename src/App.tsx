@@ -22,25 +22,25 @@ import InvoiceDetail from "./pages/Invoices/InvoiceDetail";
 import ClientPortal from "./pages/Portal/ClientPortal";
 import Settings from "./pages/Settings/Settings";
 
-function PlaceholderPage({ name }: { name: string }) {
-  return (
-    <div
-      style={{
-        fontFamily: "var(--font-mono)",
-        color: "var(--hw-text-stenciled)",
-      }}
-    >
-      <h2
-        style={{ textTransform: "uppercase", letterSpacing: 2, fontSize: 13 }}
-      >
-        // {name}
-      </h2>
-      <p style={{ color: "var(--hw-text-dim)", marginTop: 8, fontSize: 11 }}>
-        Module coming online...
-      </p>
-    </div>
-  );
-}
+// function PlaceholderPage({ name }: { name: string }) {
+//   return (
+//     <div
+//       style={{
+//         fontFamily: "var(--font-mono)",
+//         color: "var(--hw-text-stenciled)",
+//       }}
+//     >
+//       <h2
+//         style={{ textTransform: "uppercase", letterSpacing: 2, fontSize: 13 }}
+//       >
+//         // {name}
+//       </h2>
+//       <p style={{ color: "var(--hw-text-dim)", marginTop: 8, fontSize: 11 }}>
+//         Module coming online...
+//       </p>
+//     </div>
+//   );
+// }
 
 // Redirects / based on auth state
 function HomeRedirect() {
