@@ -8,6 +8,7 @@ import {
   PublicOnlyRoute,
 } from "./components/routing/RouteGuards";
 import { PageShell } from "./components/layout/PageShell";
+import Landing from "./pages/Landing/Landing";
 import Auth from "./pages/Auth/Auth";
 import VerifyForm from "./pages/Auth/VerifyForm";
 import ForgotForm from "./pages/Auth/ForgotForm";
@@ -19,6 +20,7 @@ import ProjectDetail from "./pages/Projects/ProjectDetail";
 import Invoices from "./pages/Invoices/Invoices";
 import InvoiceDetail from "./pages/Invoices/InvoiceDetail";
 import ClientPortal from "./pages/Portal/ClientPortal";
+import Settings from "./pages/Settings/Settings";
 
 function PlaceholderPage({ name }: { name: string }) {
   return (
@@ -40,11 +42,22 @@ function PlaceholderPage({ name }: { name: string }) {
   );
 }
 
+// Redirects / based on auth state
+function HomeRedirect() {
+  const { isAuthenticated, isLoading } = useAuth();
+  if (isLoading) return null;
+  return isAuthenticated ? <Navigate to="/dashboard" replace /> : <Landing />;
+}
+
 function AppRoutes() {
   const { isAuthenticated } = useAuth();
   return (
     <SocketProvider isAuthenticated={isAuthenticated}>
       <Routes>
+        {/* Landing / Home */}
+        <Route path="/" element={<HomeRedirect />} />
+
+        {/* Auth flows — redirect to dashboard if already logged in */}
         <Route element={<PublicOnlyRoute />}>
           <Route path="/auth" element={<Auth />} />
           <Route path="/auth/verify" element={<VerifyForm />} />
@@ -52,11 +65,11 @@ function AppRoutes() {
           <Route path="/auth/reset-verify" element={<ResetVerifyForm />} />
           <Route path="/auth/reset-password" element={<ResetPasswordForm />} />
         </Route>
+
+        {/* Fully public */}
         <Route path="/portal/:token" element={<ClientPortal />} />
-        <Route
-          path="/payment/success"
-          element={<PlaceholderPage name="Payment Success" />}
-        />
+
+        {/* Protected */}
         <Route element={<ProtectedRoute />}>
           <Route
             path="/dashboard"
@@ -102,13 +115,13 @@ function AppRoutes() {
             path="/settings"
             element={
               <PageShell>
-                <PlaceholderPage name="Settings" />
+                <Settings />
               </PageShell>
             }
           />
         </Route>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </SocketProvider>
   );

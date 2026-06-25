@@ -14,9 +14,10 @@ const NAV_ITEMS = [
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  onNavClick: () => void;
 }
 
-export function Sidebar({ isOpen, onClose }: SidebarProps) {
+export function Sidebar({ isOpen, onClose, onNavClick }: SidebarProps) {
   const { user, logout } = useAuth();
   const { addToast } = useToast();
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               className={({ isActive }) =>
                 `${styles.navItem} ${isActive ? styles.navItemActive : ""}`
               }
-              onClick={onClose}
+              onClick={onNavClick}
             >
               <span className={styles.navIcon}>{item.icon}</span>
               <span className={styles.navItemLabel}>{item.label}</span>

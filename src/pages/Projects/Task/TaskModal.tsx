@@ -7,6 +7,7 @@ import { TaskComments } from "./TaskComments";
 import type { Task, TaskStatus, TaskPriority } from "../../../types";
 import styles from "./TaskModal.module.css";
 import { TimeLogger } from "./TimeLogger";
+import { FileAttachments } from "./FileAttachments";
 
 const STATUS_OPTIONS: { value: TaskStatus; label: string }[] = [
   { value: "todo", label: "To Do" },
@@ -153,7 +154,6 @@ export function TaskModal({
           ) : (
             <h3 className={styles.title}>{task.title}</h3>
           )}
-
           {/* Meta row — status + priority + due date */}
           <div className={styles.metaRow}>
             <div className={styles.metaField}>
@@ -227,10 +227,8 @@ export function TaskModal({
               )}
             </div>
           </div>
-
           {/* Divider */}
           <div className={styles.divider} />
-
           {/* Description */}
           <div className={styles.descSection}>
             <p className={styles.metaLabel}>// Description</p>
@@ -250,7 +248,6 @@ export function TaskModal({
               </p>
             )}
           </div>
-
           {/* Time logging — hidden while editing task details */}
           {!isEditing && (
             <>
@@ -259,6 +256,12 @@ export function TaskModal({
             </>
           )}
 
+          {!isEditing && (
+            <>
+              <div className={styles.divider} />
+              <FileAttachments taskId={task.id} projectId={projectId} />
+            </>
+          )}
           {/* Actions */}
           <div className={styles.actions}>
             {isEditing ? (

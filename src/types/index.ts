@@ -4,7 +4,7 @@ export interface User {
   id: string;
   email: string;
   username: string;
-  full_name?: string | null; // optional — set later via Settings/profile
+  full_name: string | null; // optional — set later via Settings/profile
   avatar_url: string | null;
   created_at: string;
 }
