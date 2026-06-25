@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/api/auth/:path*",
-      "destination": "https://flowdesk-auth.onrender.com/:path*"
+      "destination": "https://flowdesk-auth.onrender.com/api/auth/:path*"
     },
     {
       "source": "/api/:path*",
-      "destination": "https://flowdesk-backend-ji60.onrender.com/:path*"
+      "destination": "https://flowdesk-backend-ji60.onrender.com/api/:path*"
     },
     {
       "source": "/app/:path*",
