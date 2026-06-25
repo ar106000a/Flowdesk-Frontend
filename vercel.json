@@ -2,15 +2,15 @@
   "rewrites": [
     {
       "source": "/api/auth/:path*",
-      "destination": "https://your-auth-wrapper.railway.app/api/auth/:path*"
+      "destination": "https://flowdesk-auth.onrender.com/:path*"
     },
     {
       "source": "/api/:path*",
-      "destination": "https://your-flowdesk-backend.onrender.com/api/:path*"
+      "destination": "https://flowdesk-backend-ji60.onrender.com/:path*"
     },
     {
       "source": "/app/:path*",
-      "destination": "https://your-flowdesk-backend.onrender.com/app/:path*"
+      "destination": "https://flowdesk-backend-ji60.onrender.com/:path*"
     },
     {
       "source": "/(.*)",

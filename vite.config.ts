@@ -7,10 +7,19 @@ export default defineConfig({
     port: 3001,
     proxy: {
       // Auth wrapper — MUST be before /api
-      "/api/auth": { target: "http://localhost:5001", changeOrigin: true },
+      "/api/auth": {
+        target: "https://flowdesk-auth.onrender.com",
+        changeOrigin: true,
+      },
       // Our backend
-      "/api": { target: "http://localhost:5000", changeOrigin: true },
-      "/app": { target: "http://localhost:5000", changeOrigin: true },
+      "/api": {
+        target: "https://flowdesk-backend-ji60.onrender.com",
+        changeOrigin: true,
+      },
+      "/app": {
+        target: "https://flowdesk-backend-ji60.onrender.com",
+        changeOrigin: true,
+      },
     },
   },
 });
