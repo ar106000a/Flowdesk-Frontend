@@ -43,6 +43,19 @@ export function TaskCard({ task, isDragging = false, onClick }: TaskCardProps) {
     onClick?.();
   }
 
+  // Strip common markdown symbols for plain text preview
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, "$1")   // bold
+    .replace(/\*(.*?)\*/g, "$1")        // italic
+    .replace(/`(.*?)`/g, "$1")          // code
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // links
+    .replace(/^#{1,3}\s+/gm, "")        // headings
+    .replace(/^>\s+/gm, "")             // blockquotes
+    .replace(/^[-*+]\s+/gm, "")         // list items
+    .trim();
+}
+
   return (
     <div
       ref={setNodeRef}
@@ -62,7 +75,7 @@ export function TaskCard({ task, isDragging = false, onClick }: TaskCardProps) {
       <div className={styles.body}>
         <p className={styles.title}>{task.title}</p>
         {task.description && (
-          <p className={styles.desc}>{task.description}</p>
+          <p className={styles.desc}>{stripMarkdown(task.description)}</p>
         )}
         <div className={styles.footer}>
           <span

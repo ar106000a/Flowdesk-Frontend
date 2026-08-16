@@ -10,6 +10,7 @@ import styles from "./TaskModal.module.css";
 import { TimeLogger } from "./TimeLogger";
 import { FileAttachments } from "./FileAttachments";
 import { useRef } from "react";
+import remarkGfm from "remark-gfm";
 import { useMarkdownEditor } from "../../../hooks/useMarkdownEditor";
 
 const STATUS_OPTIONS: { value: TaskStatus; label: string }[] = [
@@ -258,7 +259,7 @@ export function TaskModal({
             ) : (
               task.description ? (
                 <div className={styles.descMarkdown}>
-                  <ReactMarkdown>{task.description}</ReactMarkdown>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{task.description}</ReactMarkdown>
                 </div>
               ) : (
                 <p className={styles.descText}>
