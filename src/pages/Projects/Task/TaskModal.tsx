@@ -9,6 +9,8 @@ import type { Task, TaskStatus, TaskPriority } from "../../../types";
 import styles from "./TaskModal.module.css";
 import { TimeLogger } from "./TimeLogger";
 import { FileAttachments } from "./FileAttachments";
+import { useRef } from "react";
+import { useMarkdownEditor } from "../../../hooks/useMarkdownEditor";
 
 const STATUS_OPTIONS: { value: TaskStatus; label: string }[] = [
   { value: "todo", label: "To Do" },
@@ -59,6 +61,13 @@ export function TaskModal({
 
   // 1. Store the previous task to track modifications / transitions
   const [prevTask, setPrevTask] = useState(task);
+
+  const descRef = useRef<HTMLTextAreaElement>(null);
+  const { handleKeyDown: handleDescKeyDown } = useMarkdownEditor({
+    value: description,
+    onChange: setDescription,
+    ref: descRef,
+  });
 
   // 2. Adjust state conditionally during render to avoid cascading effect renders
   if (task !== prevTask) {
@@ -236,9 +245,11 @@ export function TaskModal({
             {isEditing ? (
               <>
               <textarea
+                ref={descRef}
                 className={styles.descInput}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                onKeyDown={handleDescKeyDown}
                 placeholder="Add a description..."
                 rows={5}
               />
