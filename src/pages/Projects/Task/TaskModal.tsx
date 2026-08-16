@@ -4,6 +4,7 @@ import api from "../../../lib/api";
 import { useToast } from "../../../hooks/UseToast";
 import { Modal } from "../../../components/ui/Modal";
 import { TaskComments } from "./TaskComments";
+import ReactMarkdown from "react-markdown";
 import type { Task, TaskStatus, TaskPriority } from "../../../types";
 import styles from "./TaskModal.module.css";
 import { TimeLogger } from "./TimeLogger";
@@ -233,6 +234,7 @@ export function TaskModal({
           <div className={styles.descSection}>
             <p className={styles.metaLabel}>// Description</p>
             {isEditing ? (
+              <>
               <textarea
                 className={styles.descInput}
                 value={description}
@@ -240,12 +242,18 @@ export function TaskModal({
                 placeholder="Add a description..."
                 rows={5}
               />
+              <p className={styles.mdHint}>Markdown supported — **bold**, *italic*, `code`, - lists</p>
+              </>
             ) : (
-              <p className={styles.descText}>
-                {task.description || (
+              task.description ? (
+                <div className={styles.descMarkdown}>
+                  <ReactMarkdown>{task.description}</ReactMarkdown>
+                </div>
+              ) : (
+                <p className={styles.descText}>
                   <span className={styles.empty}>No description</span>
-                )}
-              </p>
+                </p>
+              )
             )}
           </div>
           {/* Time logging — hidden while editing task details */}

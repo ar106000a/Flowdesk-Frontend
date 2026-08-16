@@ -251,3 +251,95 @@
   display: flex;
   flex-direction: column;
 }
+
+
+/* ── Markdown rendered output ───────────────────────────── */
+.descMarkdown {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--hw-text-stenciled);
+  line-height: 1.7;
+}
+
+.descMarkdown p {
+  margin: 0 0 10px;
+}
+
+.descMarkdown p:last-child {
+  margin-bottom: 0;
+}
+
+.descMarkdown strong {
+  font-weight: 700;
+  color: var(--hw-text-bright);
+}
+
+.descMarkdown em {
+  font-style: italic;
+  color: var(--hw-text-dim);
+}
+
+.descMarkdown code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--hw-accent-lcd);
+  background: var(--hw-recessed-well);
+  padding: 1px 6px;
+  border-radius: 3px;
+  border: 1px solid #1a1a1a;
+}
+
+.descMarkdown ul,
+.descMarkdown ol {
+  padding-left: 20px;
+  margin: 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.descMarkdown li {
+  font-size: 13px;
+  color: var(--hw-text-stenciled);
+  line-height: 1.5;
+}
+
+.descMarkdown h1,
+.descMarkdown h2,
+.descMarkdown h3 {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--hw-text-stenciled);
+  margin: 12px 0 6px;
+}
+
+.descMarkdown h1 { font-size: 14px; }
+.descMarkdown h2 { font-size: 13px; }
+.descMarkdown h3 { font-size: 12px; }
+
+.descMarkdown blockquote {
+  border-left: 3px solid var(--hw-accent-trigger);
+  padding-left: 12px;
+  margin: 0 0 10px;
+  color: var(--hw-text-dim);
+}
+
+.descMarkdown a {
+  color: var(--hw-accent-info);
+  text-decoration: none;
+}
+.descMarkdown a:hover {
+  text-decoration: underline;
+}
+
+/* ── Markdown hint below textarea ───────────────────────── */
+.mdHint {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--hw-text-dim);
+  opacity: 0.6;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
